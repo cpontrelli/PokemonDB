@@ -1,0 +1,139 @@
+<h2>Create Pokemon</h2>
+    <p>Add new Pokemon to the Pokemon table.</p>
+    <form id="createForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <label for="hp">HP:</label>
+        <input type="number" id="hp" name="hp">
+        <label for="attack">Attack:</label>
+        <input type="number" id="attack" name="attack">
+        <label for="defense">Defense:</label>
+        <input type="number" id="defense" name="defense">
+        <label for="specAtk">Special Atk.:</label>
+        <input type="number" id="specAtk" name="specAtk">
+        <label for="specDef">Special Def.:</label>
+        <input type="number" id="specDef" name="specDef">
+        <label for="speed">Speed:</label>
+        <input type="number" id="speed" name="speed">
+        <label for="type1">Type 1:</label>
+        <select id="type1" name="type1">
+            <option selected="selected" value="-1">Select</option>
+            {{#each types}}
+                <option value="{{type_id}}">{{type_name}}</option>
+            {{/each}}
+        </select>
+        <label for="type2">Type 2:</label>
+        <select id="type2" name="type2">
+            <option selected="selected" value="-1">None</option>
+            {{#each types}}
+                <option value="{{type_id}}">{{type_name}}</option>
+            {{/each}}
+        </select>
+    </form>
+    <h2>Moves</h2>
+    <p>Displays new pokemon's moves. You can add moves to the table below before creating the pokemon.</p>
+    <div id="pokemonMoves">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Power</th>
+                <th>Accuracy</th>
+                <th>PP</th>
+                <th></th>
+            </tr>
+        </table><br>
+    </div>
+    <form>
+        <input type="button" value="Create Pokemon" onclick="createPokemon()">
+    </form>
+    <h2>Add Moves</h2>
+    <p>Select from moves available in the Moves table. Filter by type, power, accuracy, and PP</p>
+    <fieldset>
+        <legend>Filter</legend>
+        <form id="searchForm">
+            <label for="type">Type:</label>
+            <select id="type" name="type">
+                <option selected="selected" value="-1">Any</option>
+            {{#each types}}
+                <option value="{{type_id}}">{{type_name}}</option>
+            {{/each}}
+            </select>
+            <label for="power">Min Power:</label>
+            <input type="number" id="power" name="power">
+            <label for="accuracy">Min Accuracy:</label>
+            <input type="number" id="accuracy" name="accuracy">
+            <label for="pp">Min PP:</label>
+            <input type="number" id="pp" name="pp">
+            <input type="button" value="Search" onclick="searchMoves()">
+        </form>
+    </fieldset><br>
+    <div id="moves">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Power</th>
+                <th>Accuracy</th>
+                <th>PP</th>
+                <th></th>
+            </tr>
+            {{#each moves}}
+            <tr>
+                <td>{{move_name}}</td>
+                <td>{{type_name}}</td>
+                <td>{{power}}</td>
+                <td>{{accuracy}}</td>
+                <td>{{pp}}</td>
+                <td><input type="button" value="Add" onclick="addMove('{{move_id}}', '{{move_name}}', '{{type_name}}', '{{power}}', '{{accuracy}}', '{{pp}}')"></td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+
+    <!--Handlebars Templates-->
+    <script id="pokemonMovesTemplate" type="text/x-handlebars-template">
+        <table id="pokemonMoves">
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Power</th>
+                <th>Accuracy</th>
+                <th>PP</th>
+                <th></th>
+            </tr>
+            \{{#each pokemonMoves}}
+            <tr>
+                <td>\{{move_name}}</td>
+                <td>\{{type_name}}</td>
+                <td>\{{power}}</td>
+                <td>\{{accuracy}}</td>
+                <td>\{{pp}}</td>
+                <td><input type="button" value="Remove" onclick="deleteMove(\{{@index}})"</td>
+            </tr>
+            \{{/each}}
+        </table><br>
+    </script>
+    <script id="movesTemplate" type="text/x-handlebars-template">
+        <table id="moves">
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Power</th>
+                <th>Accuracy</th>
+                <th>PP</th>
+                <th></th>
+            </tr>
+            \{{#each moves}}
+            <tr>
+                <td>\{{move_name}}</td>
+                <td>\{{type_name}}</td>
+                <td>\{{power}}</td>
+                <td>\{{accuracy}}</td>
+                <td>\{{pp}}</td>
+                <td><input type="button" value="Add" onclick="addMove('\{{move_id}}', '\{{move_name}}', '\{{type_name}}', '\{{power}}', '\{{accuracy}}', '\{{pp}}')"</td>
+            </tr>
+            \{{/each}}
+        </table>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>

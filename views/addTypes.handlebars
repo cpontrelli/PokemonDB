@@ -1,0 +1,66 @@
+<h2>Create Type</h2>
+    <p>Add new Type to the Type table.</p>
+    <form action="/addTypes/addType" method="post" id="createType" onsubmit="return checkType()">
+        <label for="newType">Type:</label>
+        <input type="text" id="newType" name="newType">
+        <input type="submit" value="Create Type">
+    </form>
+    <h2>Add Type Strength</h2>
+    <p>Add a type strength to the type strengths table</p>
+    <fieldset>
+        <legend>Add Strength</legend>
+        <form action="/addTypes/addTypeStrength" method="post" id="createTypeStrength" onsubmit="return checkTypeStrength()">
+            <label for="typeForStrength">Type:</label>
+            <select id="typeForStrength" name="typeForStrength">
+                <option selected="selected" value="-1">Select</option>
+              {{#each types}}
+                    <option value="{{type_id}}">{{type_name}}</option>
+              {{/each}}
+            </select>
+            <label for="typeStrength">Type Strength:</label>
+            <select id="typeStrength" name="typeStrength">
+                <option selected="selected" value="-1">Select</option>
+              {{#each types}}
+                    <option value="{{type_id}}">{{type_name}}</option>
+              {{/each}}
+            </select>
+            <input type="submit" value="Add">
+        </form>
+    </fieldset>
+    <h2>Add Type Weakness</h2>
+    <p>Add a type weakness to the type weaknesses table</p>
+    <fieldset>
+        <legend>Add Weakness</legend>
+        <form action="/addTypes/addTypeWeakness" method="post" id="createTypeWeakness" onsubmit="return checkTypeWeakness()">
+            <label for="typeForWeakness">Type:</label>
+            <select id="typeForWeakness" name="typeForWeakness">
+                <option selected="selected" value="-1">Select</option>
+              {{#each types}}
+                    <option value="{{type_id}}">{{type_name}}</option>
+              {{/each}}
+            </select>
+            <label for="typeWeakness">Type Strength:</label>
+            <select id="typeWeakness" name="typeWeakness">
+                <option selected="selected" value="-1">Select</option>
+              {{#each types}}
+                    <option value="{{type_id}}">{{type_name}}</option>
+              {{/each}}
+            </select>
+            <input type="submit" value="Add">
+        </form>
+    </fieldset>
+    <h2>View Type Strengths and Weaknesses</h2>
+        <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Type Strength</th>
+                    <th>Type Weakness</th>
+                </tr>
+        {{#each types}}
+                <tr>
+                    <td>{{type_name}}</td>
+                    <td>{{strength}}</td>
+                    <td>{{weakness}}</td>
+                </tr>
+        {{/each}}
+            </table>

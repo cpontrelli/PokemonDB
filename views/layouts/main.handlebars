@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>PokeData Party</title>
+  <link rel="stylesheet" href="/static/navigationbar.css">
+  {{#each jsscripts}}
+  <script src="/static/{{this}}"></script>
+  {{/each}}
+</head>
+<body>
+    <ul>
+      <li><a href="/home">Home</a></li>
+      <li><a href="/party">Party</a></li>
+      <li><a href="/addPokemon">New Pokemon</a></li>
+      <li><a href="/addMoves">New Move</a></li>
+      <li><a href="/addTypes">New Type</a></li>
+      <li><a href="/editPokemonMoves">Edit Pokemon Moves</a></li>
+    </ul>
+    {{{body}}}
+</body>
+</html>

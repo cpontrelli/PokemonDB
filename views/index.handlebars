@@ -1,0 +1,44 @@
+<h2>Select Your Player</h2>
+<p>Search Players by Username.</p>
+<form action="/home/searchPlayer" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+    <input type="submit" value="Search">
+</form>
+<p>Click select to view your party, edit to update your username or delete to remove your player.</p>
+<table id="players">
+    <tr>
+        <th>User</th>
+        <th>Pokemon</th>
+    </tr>
+    {{#each players}}
+    <tr>
+        <td>{{player_name}}</td>
+        <td>{{pokemon_count}}</td>
+        <td>
+            <form>
+                <input type="button" value="Edit" onclick="genUpdateForm('{{player_id}}', '{{player_name}}', '{{@index}}')">
+            </form>
+        </td>
+        <td>
+            <form action="/home/deletePlayer" method="post">
+                <input type="hidden" id={{player_id}} name="player_id" value={{player_id}}>
+                <input type="submit" value="Delete">
+            </form>
+        </td>
+        <td>
+            <form action="/party" method="post">
+                <input type="hidden" id={{player_id}} name="player_id" value={{player_id}}>
+                <input type="submit" value="Select">
+            </form>
+        </td>
+    </tr>
+    {{/each}}
+</table>
+<h2>Create New Player</h2>
+<p>Add a new Player to the Database.</p>
+<form action="/home/addPlayer" method="post" onsubmit="return checkNewUser()">
+    <label for="newUser">Username:</label>
+    <input type="text" id="newUser" name="newUser">
+    <input type="submit" value="Add">
+</form>

@@ -1,0 +1,116 @@
+<h2>Your Party</h2>
+    <p>Display this player's pokemon. Parties are limited to 6 or less Pokemon.</p>
+    <table>
+        <tr>
+          <th>Pokemon</th>
+          <th>HP</th>
+          <th>Attack</th>
+          <th>Defense</th>
+          <th>Special Atk.</th>
+          <th>Special Def.</th>
+          <th>Speed</th>
+          <th>Type 1</th>
+          <th>Type 2</th>
+          <th></th>
+        </tr>
+        {{#each playersPokemon}}
+        <tr>
+          <td>{{pokemon_name}}</td>
+          <td>{{hp}}</td>
+          <td>{{attack}}</td>
+          <td>{{defense}}</td>
+          <td>{{spec_atk}}</td>
+          <td>{{spec_def}}</td>
+          <td>{{speed}}</td>
+          <td>{{type1_name}}</td>
+          <td>{{type2_name}}</td>
+          <td>
+            <form action="/party/removePokemon" method="post">
+                <input type="hidden" id={{pokemon_id}} name="pokemon_id" value={{pokemon_id}}>
+                <input type="submit" value="Remove">
+            </form>
+          </td>
+        </tr>
+        {{/each}}
+    </table><br>
+    <h2>Add Pokemon</h2>
+    <p>Select Pokemon from the Pokemon Table. Filter results by moves, types, strengths, weaknesses, and minimum stats.</p>
+    <fieldset>
+      <legend>Filter</legend>
+      <form action="/party/searchPokemon" method="post">
+        <label for="type">Type:</label>
+        <select id="type" name="type">
+            <option value="-1">Any</option>
+            {{#each types}}
+                <option value="{{type_id}}">{{type_name}}</option>
+            {{/each}}
+        </select>
+        <label for="strength">Strength:</label>
+        <select id="strength" name="strength">
+            <option value="-1">Any</option>
+            {{#each types}}
+                <option value="{{type_id}}">{{type_name}}</option>
+            {{/each}}
+        </select>
+        <label for="weaknesses">Weakness:</label>
+        <select id="weakness" name="weakness">
+            <option value="-1">Any</option>
+            {{#each types}}
+                <option value="{{type_id}}">{{type_name}}</option>
+            {{/each}}
+        </select>
+        <label for="Move">Move:</label>
+        <select id="move" name="move">
+            <option value="-1">Any</option>
+            {{#each moves}}
+                <option value="{{move_id}}">{{move_name}}</option>
+            {{/each}}
+        </select>
+        <label for="minHP">Min HP:</label>
+        <input type="number" id="minHP" name="minHP">
+        <label for="minAttack">Min Attack:</label>
+        <input type="number" id="minAttack" name="minAttack">
+        <label for="minDefense">Min Defense:</label>
+        <input type="number" id="minDefense" name="minDefense">
+        <label for="minSpecAtk">Min Spec Atk:</label>
+        <input type="number" id="minSpecAtk" name="minSpecAtk">
+        <label for="minSpecDef">Min Spec Def:</label>
+        <input type="number" id="minSpecDef" name="minSpecDef">
+        <label for="minSpeed">Min Speed:</label>
+        <input type="number" id="minSpeed" name="minSpeed">
+        <input type="submit" value="Search">
+      </form>
+    </fieldset><br>
+    <table>
+      <tr>
+        <th>Pokemon</th>
+        <th>HP</th>
+        <th>Attack</th>
+        <th>Defense</th>
+        <th>Special Atk.</th>
+        <th>Special Def.</th>
+        <th>Speed</th>
+        <th>Type 1</th>
+        <th>Type 2</th>
+        <th></th>
+      </tr>
+      {{#each pokemon}}
+      <tr>
+        <td>{{pokemon_name}}</td>
+        <td>{{hp}}</td>
+        <td>{{attack}}</td>
+        <td>{{defense}}</td>
+        <td>{{spec_atk}}</td>
+        <td>{{spec_def}}</td>
+        <td>{{speed}}</td>
+        <td>{{type1_name}}</td>
+        <td>{{type2_name}}</td>
+        <td>
+            <form action="/party/addPokemon" onsubmit="return checkCount('{{../pokemonCount}}')" method="post">
+                <input type="hidden" id={{pokemon_id}} name="pokemon_id" value={{pokemon_id}}>
+                <input type="submit" value="Add">
+            </form>
+        </td>
+      </tr>
+      {{/each}}
+  </table><br>

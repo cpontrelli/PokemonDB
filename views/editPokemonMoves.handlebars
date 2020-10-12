@@ -1,0 +1,87 @@
+<h2>Pokemon</h2>
+    <p>First select a pokemon to edit their moves.</p>
+    <form action="/editPokemonMoves/selectPokemon" method="post">
+      <select id="pokemon_id" name="pokemon_id">
+        {{#each pokemon}}
+            <option value="{{pokemon_id}}">{{pokemon_name}}</option>
+        {{/each}}
+      </select>
+      <input type="submit" value="Select">
+    </form>
+<h2>Moves</h2>
+    <p>Display selected pokemon's current moves.</p>
+    <table>
+      <caption><h3>{{pokemonName}}</h3></caption>
+      <tr>
+        <th>Move</th>
+        <th>Type</th>
+        <th>Power</th>
+        <th>Accuracy</th>
+        <th>PP</th>
+        <th></th>
+      </tr>
+      {{#each pokemonMoves}}
+      <tr>
+        <td>{{move_name}}</td>
+        <td>{{type_name}}</td>
+        <td>{{power}}</td>
+        <td>{{accuracy}}</td>
+        <td>{{pp}}</td>
+        <td>
+          <form action="/editPokemonMoves/deleteMove" method="post">
+            <input type="hidden" id={{move_id}} name="move_id" value={{move_id}}>
+            <input type="hidden" id={{pokemon_id}} name="pokemon_id" value={{pokemon_id}}>
+            <input type="submit" value="Remove">
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+    </table><br>
+    <h2>Add Moves</h2>
+    <p>Select from moves available in the Moves table. Filter by type, power, accuracy, and PP</p>
+    <fieldset>
+      <legend>Filter</legend>
+      <form action="/editPokemonMoves/searchMoves" onsubmit="return checkPokemonId({{pokemonId}})" method="post" id="searchForm">
+        <label for="type">Type:</label>
+        <select id="type" name="type">
+            <option selected="selected" value="-1">Any</option>
+        {{#each types}}
+            <option value="{{type_id}}">{{type_name}}</option>
+        {{/each}}
+        </select>
+        <label for="power">Min Power:</label>
+        <input type="number" id="power" name="power">
+        <label for="accuracy">Min Accuracy:</label>
+        <input type="number" id="accuracy" name="accuracy">
+        <label for="pp">Min PP:</label>
+        <input type="number" id="pp" name="pp">
+        <input type="hidden" id={{pokemonId}} name="pokemon_id" value={{pokemonId}}>
+        <input type="submit" value="Search">
+      </form>
+    </fieldset><br>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Power</th>
+        <th>Accuracy</th>
+        <th>PP</th>
+        <th></th>
+      </tr>
+      {{#each moves}}
+      <tr>
+        <td>{{move_name}}</td>
+        <td>{{type_name}}</td>
+        <td>{{power}}</td>
+        <td>{{accuracy}}</td>
+        <td>{{pp}}</td>
+        <td>
+          <form action="/editPokemonMoves/addMove" onsubmit="return checkPokemonId({{../pokemonId}})" method="post">
+            <input type="hidden" id={{move_id}} name="move_id" value={{move_id}}>
+            <input type="hidden" name="pokemon_id" value={{../pokemonId}}>
+            <input type="submit" value="Add">
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+    </table>
